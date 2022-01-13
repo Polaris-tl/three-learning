@@ -60,11 +60,14 @@ loader.load( 'models/gltf/spy-hypersport/scene.gltf', function ( gltf ) {
     if ( object.isMesh ) object.castShadow = true;
     
   });
+  // https://threejs.org/examples/#webgl_loader_gltf_variants 动态切换已加载材质的示例
+  // 自定义模型材质 https://threejs.org/examples/#webgl_custom_attributes   https://threejs.org/examples/#webgl_buffergeometry_custom_attributes_particles
   setTimeout(() => {
     carmodel.traverse( function ( object: any ) {
       // object_2 后轮
       // object_25 前轮
       // object_15 前轮毂
+      // Object_22 座位
       console.log(object.name)
       if (object.isMesh && object.name === 'Object_22') object.material = newMaterial; // 覆盖默认材质
     });
