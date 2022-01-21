@@ -3,17 +3,15 @@ import * as dat from 'dat.gui';
 const gui = new dat.GUI();
 
 class Options {
-    distance = 5;
-    x = -16;
-    y = 21;
-    z = 8;
+    metalness = 1;
+    roughness = 0.3;
+    envMapIntensity = 1;
 }
 
 const options = new Options();
 
-gui.add(options, 'distance', 0, 20);
-gui.add(options, 'x', -100, 100);
-gui.add(options, 'y', -100, 100);
-gui.add(options, 'z', -100, 100);
+gui.add(options, 'metalness', 0, 1);
+gui.add(options, 'roughness', 0, 1);
+gui.add(options, 'envMapIntensity', 0, 1);
 
 export default options

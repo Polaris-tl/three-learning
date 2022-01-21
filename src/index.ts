@@ -40,31 +40,23 @@ scene.add( mesh );
 // ground↑↑↑
 
 const loader = new GLTFLoader();
-// loader.load( 'models/gltf/Xbot.glb', function ( gltf ) {
-//   const model = gltf.scene;
-//   console.log(model)
-//   scene.add( model );
-//   model.traverse( function ( object: any  ) {
-//     if ( object.isMesh ) object.castShadow = true;
-//   });
-// } );
 
 let envtexture: any = null;
 
 const getBox = (x = 1,y = 1,z = 1) => {
   const cube = new SphereGeometry( 0.4, 30, 30 );
   const material = new THREE.MeshStandardMaterial({
-    // color: 0x018cff,
-    metalness: 1.0,
-    roughness: 0.6,
-    envMapIntensity: 1,
+    color: 0x018cff,
+    metalness: options.metalness,
+    roughness: options.roughness,
+    envMapIntensity: options.envMapIntensity,
    });
   return new Mesh( cube, material )
 }
 
 const box = getBox()
 box.position.set(2,1,0)
-// scene.add( box );
+scene.add( box );
 
 //六张图片分别是朝前的（posz）、朝后的（negz）、朝上的（posy）、朝下的（negy）、朝右的（posx）和朝左的（negx）。
 new THREE.CubeTextureLoader().setPath( 'images/g1/' ).load(['px.jpg', 'nx.jpg','py.jpg', 'ny.jpg','pz.jpg', 'nz.jpg'],
@@ -83,11 +75,11 @@ loader.load( 'models/gltf/spy-hypersport/scene.gltf', function ( gltf ) {
   console.log(carmodel)
   scene.add( carmodel );
   const newMaterial = new THREE.MeshStandardMaterial({
-    // color: 0xff7c04,
-    color: 'red',
-    metalness: 1.0,
-    roughness: 0.3,
-    envMapIntensity: 1.0,
+    color: 0xff7c04,
+    // color: 'red',
+    metalness: options.metalness,
+    roughness: options.roughness,
+    envMapIntensity: options.envMapIntensity,
     envMap: envtexture,
   });
   carmodel.traverse( function ( object: any ) {
@@ -123,10 +115,12 @@ const stats = new Stats();
 document.body.appendChild( stats.dom );
 
 // 参数gui控制器
-console.log(options) // 在这里引用了options才会在页面显示右上角的那个框框
 
 const animate = function () {
     stats.begin();
+    box.material.roughness = options.roughness;
+    box.material.metalness = options.metalness;
+    box.material.envMapIntensity = options.envMapIntensity;
     renderer.render( scene, camera );
     requestAnimationFrame( animate );
     stats.end();
